@@ -41,6 +41,15 @@ class Api::StudentsController < ApplicationController
     }
   end
 
+  def schedule_pdf
+    pdf_service = PdfGeneratorService.new(@student)
+    pdf_content = pdf_service.generate_schedule_pdf
+    
+    send_data pdf_content, 
+      filename: "#{@student.name}_schedule.pdf",
+      type: 'application/pdf',
+      disposition: 'attachment'
+  end
 
   private
 
