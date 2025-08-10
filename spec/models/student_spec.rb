@@ -16,25 +16,25 @@ RSpec.describe Student, type: :model do
     end
 
     it 'requires a name' do
-      student.name = nil
+      student.update(name: nil)
       expect(student).not_to be_valid
       expect(student.errors[:name]).to include("can't be blank")
     end
 
     it 'requires an email' do
-      student.email = nil
+      student.update(email: nil)
       expect(student).not_to be_valid
       expect(student.errors[:email]).to include("can't be blank")
     end
 
     it 'requires a major' do
-      student.major = nil
+      student.update(major: nil)
       expect(student).not_to be_valid
       expect(student.errors[:major]).to include("can't be blank")
     end
 
     it 'requires a year' do
-      student.year = nil
+      student.update(year: nil)
       expect(student).not_to be_valid
       expect(student.errors[:year]).to include("can't be blank")
     end
@@ -61,13 +61,11 @@ RSpec.describe Student, type: :model do
     end
 
     it 'requires year to be between 1 and 5' do
-      student = Student.new(name: 'John Doe', email: 'john@student.edu', student_id: 'S001', major: 'CS')
-      
-      student.year = 0
+      student.update(year: 0)
       expect(student).not_to be_valid
       expect(student.errors[:year]).to include('must be greater than 0')
 
-      student.year = 6
+      student.update(year: 6)
       expect(student).not_to be_valid
       expect(student.errors[:year]).to include('must be less than or equal to 5')
 
