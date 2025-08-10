@@ -13,6 +13,7 @@ gem "rack-cors"
 
 # for authentication
 gem "jwt"
+gem 'simple_command'
 
 # for PDF generation
 gem "prawn"
@@ -20,7 +21,7 @@ gem "prawn"
 # Background jobs
 gem "sidekiq"
 
-#gem "concurrent-ruby", "~> 1.3.4"
+gem "concurrent-ruby", "~> 1.3.4"
 
 # Development and test gems
 group :development, :test do
