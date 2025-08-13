@@ -1,14 +1,13 @@
 require 'spec_helper'
 
 RSpec.describe Student, type: :model do
-  let(:student) { Student.create!(name: 'John Doe', email: 'john@student.edu', student_id: 'S001', major: 'CS', year: 2) }
+  let(:student) { Student.create!(name: 'John Doe', email: 'john@student.edu', major: 'CS', year: 2) }
   
   describe 'validations' do
     it 'is valid with valid attributes' do
       student = Student.new(
         name: 'John Doe',
         email: 'john.doe@student.edu',
-        student_id: 'S001',
         major: 'Computer Science',
         year: 2
       )
@@ -40,7 +39,7 @@ RSpec.describe Student, type: :model do
     end
 
     it 'requires unique email' do
-      duplicate = Student.new(**student.attributes).merge(student_id: 'S002')
+      duplicate = Student.new(**student.attributes)
       expect(duplicate).not_to be_valid
       expect(duplicate.errors[:email]).to include('has already been taken')
     end
@@ -52,7 +51,7 @@ RSpec.describe Student, type: :model do
     end
 
     it 'validates email format' do
-      student = Student.new(name: 'John Doe', email: 'invalid-email', student_id: 'S001', major: 'CS', year: 2)
+      student = Student.new(name: 'John Doe', email: 'invalid-email', major: 'CS', year: 2)
       expect(student).not_to be_valid
       expect(student.errors[:email]).to include('is invalid')
 

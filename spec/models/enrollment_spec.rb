@@ -4,7 +4,7 @@ RSpec.describe Enrollment, type: :model do
   let(:teacher) { Teacher.create!(name: 'John Doe', email: 'john@example.com', department: 'CS') }
   let(:subject) { Subject.create!(name: 'Programming', code: 'CS101', credits: 3) }
   let(:classroom) { Classroom.create!(name: 'Lab A', building: 'Building 1', capacity: 25, room_number: '101') }
-  let(:student) { Student.create!(name: 'Alice Smith', email: 'alice@student.edu', student_id: 'S001', major: 'CS', year: 2) }
+  let(:student) { Student.create!(name: 'Alice Smith', email: 'alice@student.edu', major: 'CS', year: 2) }
   let(:section) do
     Section.create!(
       teacher: teacher,

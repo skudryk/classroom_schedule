@@ -4,7 +4,7 @@ RSpec.describe ScheduleConflictService, type: :service do
   let(:teacher) { Teacher.create!(name: 'John Doe', email: 'john@example.com', department: 'CS') }
   let(:subject) { Subject.create!(name: 'Programming', code: 'CS101', credits: 3) }
   let(:classroom) { Classroom.create!(name: 'Lab A', building: 'Building 1', capacity: 25, room_number: '101') }
-  let(:student) { Student.create!(name: 'Alice Smith', email: 'alice@student.edu', student_id: 'S001', major: 'CS', year: 2) }
+  let(:student) { Student.create!(name: 'Alice Smith', email: 'alice@student.edu', major: 'CS', year: 2) }
   
   let(:section1) do
     Section.create!(
@@ -219,7 +219,7 @@ RSpec.describe ScheduleConflictService, type: :service do
     end
 
     it 'handles student with no enrollments' do
-      new_student = Student.create!(name: 'Bob Smith', email: 'bob@student.edu', student_id: 'S002', major: 'CS', year: 2)
+      new_student = Student.create!(name: 'Bob Smith', email: 'bob@student.edu', major: 'CS', year: 2)
       service = ScheduleConflictService.new(new_student, section1)
       expect(service.has_conflicts?).to be false
       expect(service.conflicting_sections).to be_empty
