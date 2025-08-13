@@ -8,7 +8,7 @@ class CreateAccounts < ActiveRecord::Migration[7.1]
       t.string :phone
       t.string :address
 
-      t.references :user, null: false, foreign_key: true
+      t.references :user, polymorphic: true, null: false, foreign_key: true
 
       t.timestamps
     end

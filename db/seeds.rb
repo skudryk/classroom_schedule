@@ -11,11 +11,11 @@ Classroom.destroy_all
 
 p "Creating teachers..."
 [
-  { name: 'Dr. John Smith', email: 'john.smith@university.edu', department: 'Computer Science', phone: '555-0101' },
-  { name: 'Prof. Sarah Johnson', email: 'sarah.johnson@university.edu', department: 'Mathematics', phone: '555-0102' },
-  { name: 'Dr. Michael Brown', email: 'michael.brown@university.edu', department: 'Physics', phone: '555-0103' },
+  { account_attributes: {name: 'Dr. John Smith', email: 'john.smith@university.edu',  phone: '555-0101' }, department: 'Computer Science', },
+  { account_attributes: {name: 'Prof. Sarah Johnson', email: 'sarah.johnson@university.edu', phone: '555-0102' },  department: 'Mathematics'},
+  { account_attributes: {name: 'Dr. Michael Brown', email: 'michael.brown@university.edu',  phone: '555-0103' }, department: 'Physics'},
 ].each do |teacher_attrs|
-  Teacher.create!(teacher_attrs)
+  Teacher.create(teacher_attrs)
 end
 
 
@@ -40,13 +40,13 @@ end
 
 p "Creating students..."
  [
-  { name: 'Alice Johnson', email: 'alice.johnson@student.edu', student_id: 'S001', major: 'Computer Science', year: 2 },
-  { name: 'Bob Smith', email: 'bob.smith@student.edu', student_id: 'S002', major: 'Mathematics', year: 3 },
-  { name: 'Carol Davis', email: 'carol.davis@student.edu', student_id: 'S003', major: 'Physics', year: 1 },
-  { name: 'David Wilson', email: 'david.wilson@student.edu', student_id: 'S004', major: 'English', year: 2 },
-  { name: 'Eva Brown', email: 'eva.brown@student.edu', student_id: 'S005', major: 'History', year: 4 }
+  {account_attributes: {name: 'Alice Johnson', email: 'alice.johnson@student.edu'},  major: 'Computer Science', year: 2 },
+  {account_attributes: {name: 'Bob Smith', email: 'bob.smith@student.edu'}, major: 'Mathematics', year: 3 },
+  {account_attributes: {name: 'Carol Davis', email: 'carol.davis@student.edu'}, major: 'Physics', year: 1 },
+  {account_attributes: {name: 'David Wilson', email: 'david.wilson@student.edu'}, major: 'English', year: 2 },
+  {account_attributes: {name: 'Eva Brown', email: 'eva.brown@student.edu'}, major: 'History', year: 4 }
 ].each do |student_attrs|
-  Student.create!(student_attrs)
+  Student.create(student_attrs)
 end
 
 p "Creating sections..."
@@ -85,14 +85,12 @@ sections.each do |section_attrs|
 end
 
 p "Creating enrollments..."
-enrollments = [
+[
   { student: Student.find_by(name: 'Alice Johnson'), section: Section.first, enrollment_date: Date.current, status: 'enrolled' },
   { student: Student.find_by(name: 'Bob Smith'), section: Section.second, enrollment_date: Date.current, status: 'enrolled' },
   { student: Student.find_by(name: 'Alice Johnson'), section: Section.third, enrollment_date: Date.current, status: 'enrolled' },
   { student: Student.find_by(name: 'Carol Davis'), section: Section.fourth, enrollment_date: Date.current, status: 'enrolled' }
-]
-
-enrollments.each do |enrollment_attrs|
+].each do |enrollment_attrs|
   Enrollment.create!(enrollment_attrs)
 end
 

@@ -2,9 +2,10 @@ class Student < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :sections, through: :enrollments
   
-  belongs_to :account, as: :user
+  has_one :account, as: :user
 
-  delegate :email, :name, :address to: :account
+  delegate :email, :name, :address,  to: :account
+  accepts_nested_attributes_for :account, allow_destroy: true
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
