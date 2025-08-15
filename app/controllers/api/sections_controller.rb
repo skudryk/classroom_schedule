@@ -40,9 +40,16 @@ class Api::SectionsController < ApplicationController
   def enroll
     student_id = params[:student_id]
     student = Student.find(student_id)
+
+    schedule_validator = ScheduleConflictService.new(student, @section)
+    if schedule_validator.has_conflicts?
+      conflict_types = schedule_validator.fetch_conflict_types
+      render(json: { errors: "Scheduling with this section is not possbile due to conflicts: #{conflict_types}" }, status: :unprocessable_entity)
+      return if performed?
+    end
     
     enrollment = @section.enrollments.build(
-      student: student,
+      student:,
       enrollment_date: Date.current,
       status: 'enrolled'
     )
@@ -74,6 +81,7 @@ class Api::SectionsController < ApplicationController
     render json: @sections
   end
 
+  # TODO - involve ScheduleConflictService
   def conflicts
     student_id = params[:student_id]
     section_id = params[:section_id]

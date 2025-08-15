@@ -1,3 +1,4 @@
+# to use JWT authentication we should create an account record for API client
 class AuthorizeRequestWithToken
   prepend SimpleCommand
 
@@ -5,13 +6,11 @@ class AuthorizeRequestWithToken
 
   def initialize(headers = {})
     header = headers['Authorization'] || headers['X-Authorization']
-    Rails.logger.info "-- auth. header: #{header&.last(16)}"
     @token = header.split(' ').last if header
-    Rails.logger.info "-- token in header :  #{@token&.first(16)}..#{@token&.last(16)}" if @token
   end
 
   def call
-    User.find_by(email: jwt['email']) if jwt.present?
+    Account.find_by(email: jwt['email']) if jwt.present?
   end
 
   private

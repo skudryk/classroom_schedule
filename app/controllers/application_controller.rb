@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
   
-  before_action :authenticate_user!
+  before_action :authenticate_account!
   
   private
   
-  def authenticate_user!
-      unless current_user
+  def authenticate_account!
+      unless current_account
         error = 'Not Authorized' 
         render json: {status: 401,  error:}, status: :unauthorized
       end
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
     JsonWebToken.encode(hash)
   end
 
-  def current_user
-    @current_user = AuthorizeRequestWithToken.call(request.headers).result
+  def current_account
+    @current_account = AuthorizeRequestWithToken.call(request.headers).result
   end
 end

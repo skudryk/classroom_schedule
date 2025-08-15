@@ -17,6 +17,10 @@ class ScheduleConflictService
 
   private
 
+  def  fetch_conflict_types
+    conflicting_sections.map{|c| determine_conflict_type(c)}.flat.uniq
+  end
+
   def determine_conflict_type(conflict)
     if conflict.days_of_week.any? { |day| @section.days_of_week.include?(day) }
       if time_overlaps?(conflict)
